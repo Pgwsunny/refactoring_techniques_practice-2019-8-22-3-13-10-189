@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -25,7 +27,44 @@ public class OwingPrinterTest {
 
     @Test
     public void printOwing() {
-//        System.out.print("hello");
-//        assertEquals("hello", outContent.toString());
+    	//given
+    	OwingPrinter owingPrinter = new OwingPrinter();
+    	//when
+    	String output = owingPrinter.printDetails("lisa", 0.3);
+    	//then
+    	System.out.println(output);
+    	assertEquals("name:lisa", output);
     }
+    
+    @Test
+    public void testPrintBanner() {
+    	//given
+    	OwingPrinter owingPrinter = new OwingPrinter();
+    	//when
+    	String output = owingPrinter.printBanner();
+    	//then
+    	assertEquals("1", output);
+    }
+    
+    @Test
+    public void testSumOwings() {
+    	//given
+    	OwingPrinter owingPrinter = new OwingPrinter();
+    	//when
+    	List<Order> list = Arrays.asList(new Order(0.3d),new Order(0.4d));
+    	double db = owingPrinter.sumOwings(list);
+    	//then
+    	assertEquals(0.7, db,0.01);
+    }
+    
+    @SuppressWarnings("deprecation")
+	@Test
+    public void testOrders() {
+    	//given
+    	Order order = new Order(0.3d);
+    	//when
+    	double db = order.getAmount();
+    	assertEquals(0.3, db,0.01);
+    }
+    
 }
